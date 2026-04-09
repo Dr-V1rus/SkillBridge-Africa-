@@ -1,9 +1,9 @@
 @extends('layouts.landing')
 
 @section('content')
-    <x-pages.hero />
-    <x-pages.features />
-    <x-pages.how-it-works />
-    <x-pages.cta />
-    <x-pages.faq />
+    @include('pages.hero')
+    @include('pages.features')
+    @include('pages.how-it-works')
+    @include('pages.cta')
+    @include('pages.faq')
 @endsection

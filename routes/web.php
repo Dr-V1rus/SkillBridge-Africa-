@@ -1,11 +1,18 @@
 <?php
 
+use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\InternshipController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/register/business', function () {
+    return view('auth.register', ['role' => 'business']);
+})->name('register.business');
 
 Route::get('/features', function () {
     return view('pages.features');
@@ -36,7 +43,14 @@ Route::get('/terms', function () {
 })->name('terms');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    if (Auth::user()->role === 'business') {
+        return view('dashboards.business');
+    }
+
+    $applications     = Auth::user()->applications ?? collect();
+    $internshipsCount = \App\Models\Internship::where('is_active', true)->count();
+
+    return view('dashboard', compact('applications', 'internshipsCount'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -45,4 +59,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+Route::middleware('auth')->group(function () {
+    Route::get('/internships', [InternshipController::class, 'index'])->name('internships.index');
+    Route::get('/internships/create', [InternshipController::class, 'create'])->name('internships.create');
+    Route::post('/internships', [InternshipController::class, 'store'])->name('internships.store');
+    Route::get('/internships/{internship}', [InternshipController::class, 'show'])->name('internships.show');
+    Route::get('/applications', [ApplicationController::class, 'index'])->name('applications.index');
+    Route::post('/applications', [ApplicationController::class, 'store'])->name('applications.store');
+    Route::get('/applications/create/{internship}', [ApplicationController::class, 'create'])->name('applications.create');
+});
+
+require __DIR__ . '/auth.php';

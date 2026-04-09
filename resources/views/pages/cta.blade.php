@@ -1,11 +1,6 @@
 {{-- <div>
     <!-- An unexamined life is not worth living. - Socrates -->
 </div> --}}
-
-@extends('layouts.landing')
-
-@section('content')
-    
 <section class="bg-blue-600 py-16 px-4">
     <div class="max-w-3xl mx-auto text-center">
         <h2 class="text-3xl font-bold text-white mb-4">Ready to start your journey?</h2>
@@ -15,4 +10,3 @@
             Started</a>
     </div>
 </section>
-@endsection
