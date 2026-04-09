@@ -11,11 +11,18 @@
                     <p class="text-sm text-gray-600">Type: {{ $internship->type }}</p>
                     <p class="text-sm text-gray-600">Duration: {{ $internship->duration }}</p>
                     <p class="text-sm text-gray-600">Deadline: {{ $internship->deadline }}</p>
-                    
-                    @if(auth()->user()->role === 'student')
-                        <a href="{{ route('applications.create', $internship) }}" class="bg-green-600 text-white px-6 py-2 rounded-lg mt-6 inline-block">Apply Now</a>
+
+                    @if (auth()->user()->role === 'student')
+                        <a href="{{ route('applications.create', $internship) }}"
+                            class="bg-green-600 text-white px-6 py-2 rounded-lg mt-6 inline-block">Apply Now</a>
                     @endif
-                    
+
+                    @if (auth()->user()->role === 'business')
+                        <a href="{{ route('internships.applications', $internship) }}"
+                            class="bg-purple-600 text-white px-6 py-2 rounded-lg mt-6 inline-block">View Applications
+                            ({{ $internship->applications->count() }})</a>
+                    @endif
+
                     <a href="{{ route('internships.index') }}" class="text-gray-600 ml-4">Back to Internships</a>
                 </div>
             </div>

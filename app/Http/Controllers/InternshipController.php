@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Internship;
@@ -25,22 +24,22 @@ class InternshipController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
+            'title'       => 'required|string|max:255',
             'description' => 'required|string',
-            'location' => 'required|string|max:255',
-            'type' => 'required|in:remote,onsite,hybrid',
-            'duration' => 'required|string|max:255',
-            'deadline' => 'required|string|max:255',
+            'location'    => 'required|string|max:255',
+            'type'        => 'required|in:remote,onsite,hybrid',
+            'duration'    => 'required|string|max:255',
+            'deadline'    => 'required|string|max:255',
         ]);
 
         Internship::create([
             'business_id' => Auth::id(),
-            'title' => $request->title,
+            'title'       => $request->title,
             'description' => $request->description,
-            'location' => $request->location,
-            'type' => $request->type,
-            'duration' => $request->duration,
-            'deadline' => $request->deadline,
+            'location'    => $request->location,
+            'type'        => $request->type,
+            'duration'    => $request->duration,
+            'deadline'    => $request->deadline,
         ]);
 
         return redirect()->route('internships.index')->with('success', 'Internship posted successfully.');
@@ -49,5 +48,10 @@ class InternshipController extends Controller
     public function show(Internship $internship)
     {
         return view('internships.show', compact('internship'));
+    }
+
+    public function applications(Internship $internship)
+    {
+        return view('internships.applications', compact('internship'));
     }
 }

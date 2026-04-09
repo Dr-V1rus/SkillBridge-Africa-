@@ -67,6 +67,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/applications', [ApplicationController::class, 'index'])->name('applications.index');
     Route::post('/applications', [ApplicationController::class, 'store'])->name('applications.store');
     Route::get('/applications/create/{internship}', [ApplicationController::class, 'create'])->name('applications.create');
+
+    Route::patch('/applications/{application}', [ApplicationController::class, 'update'])->name('applications.update');
+    Route::get('/internships/{internship}/applications', [InternshipController::class, 'applications'])->name('internships.applications');
 });
 
 require __DIR__ . '/auth.php';

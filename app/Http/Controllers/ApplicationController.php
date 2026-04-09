@@ -36,4 +36,10 @@ class ApplicationController extends Controller
         $applications = Auth::user()->applications()->with('internship.business')->get();
         return view('applications.index', compact('applications'));
     }
+
+    public function update(Request $request, Application $application)
+    {
+        $application->update(['status' => $request->status]);
+        return back()->with('success', 'Application updated.');
+    }
 }
