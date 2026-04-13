@@ -24,13 +24,16 @@ COPY . /var/www/html
 
 RUN composer install --no-dev --optimize-autoloader
 
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/public
-RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/public
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 RUN php artisan config:cache
 RUN php artisan route:cache
 RUN php artisan view:cache
 
-RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf
+# Set document root to public folder
+ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+RUN sed -i -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/000-default.conf
+RUN sed -i -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/docker-php.conf
 
 EXPOSE 80
