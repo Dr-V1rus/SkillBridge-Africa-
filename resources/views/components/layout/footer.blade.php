@@ -2,11 +2,12 @@
     <!-- If you do not have a consistent goal in life, you can not live it in a consistent way. - Marcus Aurelius -->
 </div> --}}
 
-<footer class="bg-gray-900 text-gray-400 py-12 px-4">
+<footer class="bg-black text-gray-400 py-12 px-4">
     <div class="max-w-7xl mx-auto">
         <div class="grid md:grid-cols-4 gap-8">
             <div>
-                <a href="/" class="text-white font-semibold text-lg">SkillBridge Africa</a>
+                <a href="/" class="text-white font-semibold text-lg">
+                <img src="{{ asset('img/SkillBridge_logo2.jpeg') }}" alt="SkillBridge Africa" class=" h-28 w-auto">SkillBridge Africa</a>
                 <p class="text-sm mt-2">Connecting students with small businesses across the Commonwealth.</p>
             </div>
             <div>

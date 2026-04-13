@@ -1,1 +1,1 @@
-<span class="text-xl font-bold text-gray-900">SkillBridge Africa</span>
+<img src="{{ asset('img/SkillBridge_logo.jpeg') }}" alt="SkillBridge Africa" class="h-28 w-auto pb-6">
