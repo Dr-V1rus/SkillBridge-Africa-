@@ -7,9 +7,27 @@ use Illuminate\Support\Facades\Auth;
 
 class InternshipController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $internships = Internship::where('is_active', true)->latest()->get();
+        $query = Internship::where('is_active', true);
+
+        if ($request->search) {
+            $query->where(function ($q) use ($request) {
+                $q->where('title', 'like', '%' . $request->search . '%')
+                    ->orWhere('location', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        if ($request->type) {
+            $query->where('type', $request->type);
+        }
+
+        if ($request->duration) {
+            $query->where('duration', $request->duration);
+        }
+
+        $internships = $query->latest()->paginate(10);
+
         return view('internships.index', compact('internships'));
     }
 

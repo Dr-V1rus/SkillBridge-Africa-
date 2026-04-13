@@ -23,7 +23,7 @@
                             ({{ $internship->applications->count() }})</a>
                     @endif
 
-                    <a href="{{ route('internships.index') }}" class="text-gray-600 ml-4">Back to Internships</a>
+                    <a href="{{ route('internships.index') }}" class="bg-gray-300 text-gray-600 px-6 py-2 rounded-lg ml-6">Back</a>
                 </div>
             </div>
         </div>

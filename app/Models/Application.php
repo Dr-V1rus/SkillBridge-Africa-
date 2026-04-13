@@ -10,7 +10,13 @@ class Application extends Model
         'student_id',
         'message',
         'portfolio_link',
+        'cv_path',
+        'certificates',
         'status',
+    ];
+
+    protected $casts = [
+        'certificates' => 'array',
     ];
 
     public function internship()
