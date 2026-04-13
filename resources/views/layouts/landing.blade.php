@@ -27,13 +27,21 @@
     <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     <script>
         alertify.defaults.position = "top-right";
+        alertify.defaults.transition = "slide";
+        alertify.defaults.glossary = false;
+        alertify.defaults.notification = {
+            delay: 5,
+            close: true
+        };
 
         @if(session('success'))
             alertify.success('{{ session('success') }}');
+            {{ session()->forget('success') }}
         @endif
 
         @if(session('error'))
             alertify.error('{{ session('error') }}');
+            {{ session()->forget('error') }}
         @endif
     </script>
 </body>

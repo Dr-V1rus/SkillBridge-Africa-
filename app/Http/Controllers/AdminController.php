@@ -5,6 +5,8 @@ use App\Models\Application;
 use App\Models\Contact;
 use App\Models\Internship;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -63,5 +65,21 @@ class AdminController extends Controller
         $internship = Internship::findOrFail($id);
         $internship->delete();
         return back()->with('success', 'Internship deleted.');
+    }
+    public function replyContact(Request $request, $id)
+    {
+        $contact = Contact::findOrFail($id);
+
+        $contact->reply      = $request->reply;
+        $contact->is_replied = true;
+        $contact->save();
+
+        // Send email to user
+        Mail::raw("Hello {$contact->name},\n\nThank you for contacting SkillBridge Africa.\n\nHere is our response:\n\n{$request->reply}\n\n\nBest regards,\nSkillBridge Africa Team", function ($mail) use ($contact) {
+            $mail->to($contact->email)
+                ->subject("Re: {$contact->subject}");
+        });
+
+        return back()->with('success', 'Reply sent successfully.');
     }
 }

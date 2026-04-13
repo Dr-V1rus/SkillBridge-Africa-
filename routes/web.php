@@ -112,6 +112,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::post('/contact/{contact}/read', [AdminController::class, 'markContactRead'])->name('contact.read');
     Route::delete('/user/{user}', [AdminController::class, 'deleteUser'])->name('user.delete');
     Route::delete('/internship/{internship}', [AdminController::class, 'deleteInternship'])->name('internship.delete');
+    Route::post('/contact/{contact}/reply', [AdminController::class, 'replyContact'])->name('contact.reply');
 });
 
 require __DIR__ . '/auth.php';
