@@ -30,6 +30,9 @@ RUN php artisan config:cache
 RUN php artisan route:cache
 RUN php artisan view:cache
 
+# Run migrations
+RUN php artisan migrate --force
+
 COPY nginx.conf /etc/nginx/sites-available/default
 
 EXPOSE 80
