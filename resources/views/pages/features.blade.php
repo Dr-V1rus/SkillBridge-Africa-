@@ -1,7 +1,4 @@
-@extends('layouts.landing')
-
-@section('content')
-    <div class="pt-32 pb-20 px-4 max-w-7xl mx-auto">
+<div class="pt-32 pb-20 px-4 max-w-7xl mx-auto">
         <h1 class="text-4xl font-bold text-gray-900 mb-12 text-center">Platform Features</h1>
         <div class="grid md:grid-cols-3 gap-8">
             <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
@@ -34,4 +31,3 @@
             </div>
         </div>
     </div>
-@endsection

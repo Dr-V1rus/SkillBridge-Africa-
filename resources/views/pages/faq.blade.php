@@ -1,7 +1,4 @@
-@extends('layouts.landing')
-
-@section('content')
-    <div class="pt-32 pb-20 px-4 max-w-3xl mx-auto">
+<div class="pt-32 pb-20 px-4 max-w-3xl mx-auto">
         <h1 class="text-4xl font-bold text-gray-900 mb-12 text-center">Frequently Asked Questions</h1>
         <div x-data="{ open: null }" class="space-y-4">
             <div class="bg-white p-6 rounded-lg shadow-sm border">
@@ -65,5 +62,3 @@
                 </div>
             </div>
         </div>
-    </div>
-@endsection
