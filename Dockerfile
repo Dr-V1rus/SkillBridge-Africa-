@@ -30,8 +30,10 @@ RUN php artisan config:cache
 RUN php artisan route:cache
 RUN php artisan view:cache
 
-# Run migrations
 RUN php artisan migrate --force
+
+# Debug: List files in public directory
+RUN ls -la /var/www/html/public/
 
 COPY nginx.conf /etc/nginx/sites-available/default
 
