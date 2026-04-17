@@ -102,7 +102,6 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/applications/create/{internship}', [ApplicationController::class, 'create'])->name('applications.create');
     Route::patch('/applications/{application}', [ApplicationController::class, 'update'])->name('applications.update');
     Route::get('/internships/{internship}/applications', [InternshipController::class, 'applications'])->name('internships.applications');
-    Route::get('/student/{user}', [ProfileController::class, 'showStudent'])->name('student.show');
 });
 
 // Admin routes
@@ -119,5 +118,4 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 });
 
 require __DIR__ . '/auth.php';
-Route::get('/test', function () {return view('test');});
-Route::get('/full', function () {return view('test-full');});
+Route::get('/test', function () { return view('test'); });

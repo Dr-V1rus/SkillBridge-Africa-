@@ -72,4 +72,34 @@ class InternshipController extends Controller
     {
         return view('internships.applications', compact('internship'));
     }
+
+    public function matched()
+    {
+        $user = Auth::user();
+
+        if ($user->role === 'student') {
+            // Match internships based on student's skills and category
+            $internships = Internship::where('is_active', true)
+                ->where(function ($query) use ($user) {
+                    if ($user->skill_category) {
+                        $query->where('title', 'like', '%' . $user->skill_category . '%');
+                    }
+                    if ($user->skills) {
+                        $skills = explode(',', $user->skills);
+                        foreach ($skills as $skill) {
+                            $query->orWhere('title', 'like', '%' . trim($skill) . '%')
+                                ->orWhere('description', 'like', '%' . trim($skill) . '%');
+                        }
+                    }
+                })
+                ->latest()
+                ->paginate(10);
+        } else {
+            // For businesses, match students who applied
+            $internships = Internship::where('business_id', $user->id)->latest()->get();
+            return view('internships.matched', compact('internships'));
+        }
+
+        return view('internships.matched', compact('internships'));
+    }
 }

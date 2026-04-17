@@ -1,1 +1,1 @@
-<img src="{{ asset('img/SkillBridge_logo.jpeg') }}" alt="SkillBridge Africa" class="h-28 w-auto pb-6">
+<img src="{{ asset('img/SkillBridge_logo3.jpeg') }}" alt="SkillBridge Africa" class="h-28 w-auto pb-6">

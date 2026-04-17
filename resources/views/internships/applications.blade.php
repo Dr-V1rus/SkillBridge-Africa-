@@ -19,17 +19,20 @@
                         </a>
                         <a href="?status=pending" class="bg-yellow-100 p-4 rounded-lg text-center hover:bg-yellow-200">
                             <p class="text-2xl font-bold">
-                                {{ $internship->applications->where('status', 'pending')->count() }}</p>
+                                {{ $internship->applications->where('status', 'pending')->count() }}
+                            </p>
                             <p class="text-sm text-yellow-800">Pending</p>
                         </a>
                         <a href="?status=accepted" class="bg-green-100 p-4 rounded-lg text-center hover:bg-green-200">
                             <p class="text-2xl font-bold">
-                                {{ $internship->applications->where('status', 'accepted')->count() }}</p>
+                                {{ $internship->applications->where('status', 'accepted')->count() }}
+                            </p>
                             <p class="text-sm text-green-800">Accepted</p>
                         </a>
                         <a href="?status=rejected" class="bg-red-100 p-4 rounded-lg text-center hover:bg-red-200">
                             <p class="text-2xl font-bold">
-                                {{ $internship->applications->where('status', 'rejected')->count() }}</p>
+                                {{ $internship->applications->where('status', 'rejected')->count() }}
+                            </p>
                             <p class="text-sm text-red-800">Rejected</p>
                         </a>
                     </div>
@@ -113,23 +116,27 @@
                                 </div>
 
                                 <div class="flex flex-col gap-4 ml-4">
+                                    <a href="{{ route('student.show', $application->student) }}"
+                                        class="bg-blue-600 text-white px-4 py-2 rounded text-sm w-24 text-center hover:bg-blue-700 transition">Profile</a>
                                     <form method="POST" action="{{ route('applications.update', $application) }}">
                                         @csrf
                                         @method('PATCH')
                                         <input type="hidden" name="status" value="accepted">
-                                        <button class="bg-green-600 text-white px-4 py-2 rounded text-sm w-24">Accept</button>
+                                        <button
+                                            class="bg-green-600 text-white px-4 py-2 rounded text-sm w-24 hover:bg-green-700 transition">Accept</button>
                                     </form>
                                     <form method="POST" action="{{ route('applications.update', $application) }}">
                                         @csrf
                                         @method('PATCH')
                                         <input type="hidden" name="status" value="rejected">
-                                        <button class="bg-red-600 text-white px-4 py-2 rounded text-sm w-24">Reject</button>
+                                        <button
+                                            class="bg-red-600 text-white px-4 py-2 rounded text-sm w-24 hover:bg-red-700 transition">Reject</button>
                                     </form>
                                 </div>
                             </div>
                         </div>
                     @empty
-                        <p class="text-gray-500">No applications found.</p>
+                    <p class="text-gray-500">No applications found.</p>
                     @endforelse
                 </div>
             </div>

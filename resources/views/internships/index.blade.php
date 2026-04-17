@@ -7,10 +7,12 @@
                 <div class="p-6">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-2xl font-bold">Internships</h2>
-                        @if(auth()->user()->role === 'business')
-                            <a href="{{ route('internships.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg">+ Post
-                                Internship</a>
-                        @endif
+                        @auth
+                            @if(auth()->user()->role === 'business')
+                                <a href="{{ route('internships.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg">+
+                                    Post Internship</a>
+                            @endif
+                        @endauth
                     </div>
 
                     <form method="GET" action="{{ route('internships.index') }}" class="mb-6">
@@ -45,20 +47,22 @@
                                     <span>Duration: {{ $internship->duration }}</span>
                                 </div>
                                 <a href="{{ route('internships.show', $internship) }}"
-                                    class="text-blue-600 mt-2 inline-block">View Details <svg class="w-4 h-4 inline-block ml-1"
-                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    class="text-blue-600 mt-2 inline-block">View Details
+                                    <svg class="w-4 h-4 inline-block ml-1" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
                                         </path>
                                     </svg>
                                 </a>
-
-                                <div class="mt-6">
-                                    <a href="{{ route('dashboard') }}" class="bg-gray-300 text-gray-600 px-6 py-2 rounded-lg">Back</a>
-                                </div>
                             </div>
                         @empty
                             <p class="text-gray-500">No internships found.</p>
                         @endforelse
+                    </div>
+
+                    <div class="mt-6">
+                        <a href="{{ route('dashboard') }}"
+                            class="bg-gray-300 text-gray-600 px-6 py-2 rounded-lg inline-block">Back to Dashboard</a>
                     </div>
 
                     {{ $internships->links() }}

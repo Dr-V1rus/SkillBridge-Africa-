@@ -46,6 +46,12 @@
                                     </path>
                                 </svg></p>
                         </a>
+
+                        <a href="{{ route('dashboard.matched') }}"
+                            class="bg-indigo-50 p-6 rounded-lg hover:bg-indigo-100 transition block">
+                            <h3 class="text-lg font-semibold mb-2">Matched Internships</h3>
+                            <p class="text-sm text-gray-600 mt-2">Based on your skills →</p>
+                        </a>
                     </div>
 
                     <h3 class="text-xl font-semibold mb-4">Recent Applications</h3>
@@ -58,9 +64,9 @@
                                         <p class="text-sm text-gray-600">{{ $application->internship->business->name }}</p>
                                         <span
                                             class="inline-block px-2 py-1 text-xs rounded mt-2 
-                                                                                    {{ $application->status === 'accepted' ? 'bg-green-100 text-green-800' : '' }}
-                                                                                    {{ $application->status === 'rejected' ? 'bg-red-100 text-red-800' : '' }}
-                                                                                    {{ $application->status === 'pending' ? 'bg-yellow-100 text-yellow-800' : '' }}">
+                                                                                            {{ $application->status === 'accepted' ? 'bg-green-100 text-green-800' : '' }}
+                                                                                            {{ $application->status === 'rejected' ? 'bg-red-100 text-red-800' : '' }}
+                                                                                            {{ $application->status === 'pending' ? 'bg-yellow-100 text-yellow-800' : '' }}">
                                             {{ ucfirst($application->status) }}
                                         </span>
                                     </div>
@@ -83,7 +89,7 @@
                     @csrf
 
                     <a href="route('logout')" onclick="event.preventDefault();
-                                                                this.closest('form').submit();">
+                                                                    this.closest('form').submit();">
                         {{ __('Log Out') }}
                     </a>
                 </form>

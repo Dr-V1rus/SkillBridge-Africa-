@@ -7,7 +7,7 @@
         <div class="grid md:grid-cols-4 gap-8">
             <div>
                 <a href="/" class="text-white font-semibold text-lg">
-                <img src="{{ asset('img/SkillBridge_logo2.jpeg') }}" alt="SkillBridge Africa" class=" h-28 w-auto">SkillBridge Africa</a>
+                <img src="{{ asset('img/SkillBridge_logo3.jpeg') }}" alt="SkillBridge Africa" class=" h-28 w-auto">SkillBridge Africa</a>
                 <p class="text-sm mt-2">Connecting students with small businesses across the Commonwealth.</p>
             </div>
             <div>
