@@ -22,6 +22,14 @@
                             <label class="block text-gray-700 mb-2">Description</label>
                             <textarea name="description" rows="5" class="w-full border rounded-lg p-2" required></textarea>
                         </div>
+
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">Skills Required (comma separated)</label>
+                            <input type="text" name="skills_required" class="w-full border rounded-lg p-2"
+                                placeholder="e.g., React, Python, UI Design">
+                            <p class="text-xs text-gray-500 mt-1">List the skills needed for this internship</p>
+                        </div>
+                        
                         <div class="mb-4">
                             <label class="block text-gray-700 mb-2">Location</label>
                             <input type="text" name="location" class="w-full border rounded-lg p-2" required>

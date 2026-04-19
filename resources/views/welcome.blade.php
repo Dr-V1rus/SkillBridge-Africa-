@@ -4,6 +4,8 @@
     @include('pages.hero')
     @include('pages.impact')
     @include('pages.smart-matching')
+    @include('pages.ai-matching')
+    @include('pages.activity-feed')
     {{-- @include('internships.index', ['internships' => $internships]) --}}
     @include('pages.demo-students')
     @include('pages.features')

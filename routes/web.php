@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AIMatchingController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\InternshipController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Contact;
 use App\Models\Internship;
@@ -80,7 +83,7 @@ Route::get('/dashboard', function () {
     }
     if (Auth::user()->role === 'student') {
         $applications     = Auth::user()->applications ?? collect();
-        $internshipsCount = \App\Models\Internship::where('is_active', true)->count();
+        $internshipsCount = Internship::where('is_active', true)->count();
         return view('dashboard', compact('applications', 'internshipsCount'));
     }
     return redirect('/');
@@ -94,16 +97,39 @@ Route::middleware('auth', 'verified')->group(function () {
 
 Route::middleware('auth', 'verified')->group(function () {
     Route::get('/internships', [InternshipController::class, 'index'])->name('internships.index');
+
     Route::get('/internships/create', [InternshipController::class, 'create'])->name('internships.create');
+
     Route::post('/internships', [InternshipController::class, 'store'])->name('internships.store');
+
     Route::get('/internships/{internship}', [InternshipController::class, 'show'])->name('internships.show');
+
+    Route::get('/dashboard/matched', [InternshipController::class, 'matched'])->name('dashboard.matched');
+
     Route::get('/applications', [ApplicationController::class, 'index'])->name('applications.index');
+
     Route::post('/applications', [ApplicationController::class, 'store'])->name('applications.store');
+
     Route::get('/applications/create/{internship}', [ApplicationController::class, 'create'])->name('applications.create');
+
     Route::patch('/applications/{application}', [ApplicationController::class, 'update'])->name('applications.update');
+
     Route::get('/internships/{internship}/applications', [InternshipController::class, 'applications'])->name('internships.applications');
+
     Route::get('/student/{user}', [ProfileController::class, 'showStudent'])->name('student.show');
+
+    // AI Matching
+    Route::get('/ai-matches', [AIMatchingController::class, 'getMatches'])->name('ai.matches');
+
+    // Messages
+    Route::get('/applications/{application}/messages', [MessageController::class, 'index'])->name('messages.index');
+    Route::post('/applications/{application}/messages', [MessageController::class, 'store'])->name('messages.store');
+    Route::get('/applications/{application}/messages/json', [MessageController::class, 'getMessages'])->name('messages.json');
+    Route::get('/messages/unread', [MessageController::class, 'getUnreadCount'])->name('messages.unread');
 });
+
+// Activity feed (public)
+Route::get('/activity-feed', [ActivityController::class, 'getFeed'])->name('activity.feed');
 
 // Admin routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Internship;
@@ -42,22 +43,24 @@ class InternshipController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title'       => 'required|string|max:255',
+            'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'location'    => 'required|string|max:255',
-            'type'        => 'required|in:remote,onsite,hybrid',
-            'duration'    => 'required|string|max:255',
-            'deadline'    => 'required|string|max:255',
+            'skills_required' => 'nullable|string',
+            'location' => 'required|string|max:255',
+            'type' => 'required|in:remote,onsite,hybrid',
+            'duration' => 'required|string|max:255',
+            'deadline' => 'required|string|max:255',
         ]);
 
         Internship::create([
             'business_id' => Auth::id(),
-            'title'       => $request->title,
+            'title' => $request->title,
             'description' => $request->description,
-            'location'    => $request->location,
-            'type'        => $request->type,
-            'duration'    => $request->duration,
-            'deadline'    => $request->deadline,
+            'skills_required' => $request->skills_required,
+            'location' => $request->location,
+            'type' => $request->type,
+            'duration' => $request->duration,
+            'deadline' => $request->deadline,
         ]);
 
         return redirect()->route('internships.index')->with('success', 'Internship posted successfully.');
@@ -78,28 +81,39 @@ class InternshipController extends Controller
         $user = Auth::user();
 
         if ($user->role === 'student') {
-            // Match internships based on student's skills and category
-            $internships = Internship::where('is_active', true)
-                ->where(function ($query) use ($user) {
-                    if ($user->skill_category) {
-                        $query->where('title', 'like', '%' . $user->skill_category . '%');
-                    }
-                    if ($user->skills) {
-                        $skills = explode(',', $user->skills);
-                        foreach ($skills as $skill) {
-                            $query->orWhere('title', 'like', '%' . trim($skill) . '%')
-                                ->orWhere('description', 'like', '%' . trim($skill) . '%');
-                        }
-                    }
-                })
-                ->latest()
-                ->paginate(10);
-        } else {
-            // For businesses, match students who applied
-            $internships = Internship::where('business_id', $user->id)->latest()->get();
-            return view('internships.matched', compact('internships'));
+            $studentSkills = $user->skills ?? '';
+            $studentSkillArray = array_map('trim', explode(',', $studentSkills));
+            
+            $internships = Internship::where('is_active', true)->get();
+            $matchedInternships = [];
+            
+            foreach ($internships as $internship) {
+                $internshipSkills = $internship->skills_required ?? '';
+                $internshipSkillArray = array_map('trim', explode(',', $internshipSkills));
+                
+                $matchedSkills = array_intersect($studentSkillArray, $internshipSkillArray);
+                $matchCount = count($matchedSkills);
+                $totalSkills = max(count($studentSkillArray), 1);
+                
+                $matchPercentage = ($matchCount / $totalSkills) * 100;
+                
+                if ($matchPercentage > 0) {
+                    $matchedInternships[] = [
+                        'internship' => $internship,
+                        'match_percentage' => round($matchPercentage),
+                        'matched_skills' => array_values($matchedSkills)
+                    ];
+                }
+            }
+            
+            usort($matchedInternships, function($a, $b) {
+                return $b['match_percentage'] - $a['match_percentage'];
+            });
+            
+            $internships = collect($matchedInternships)->paginate(10);
+            return view('internships.matched', compact('internships', 'studentSkills'));
         }
 
-        return view('internships.matched', compact('internships'));
+        return redirect()->route('dashboard');
     }
 }

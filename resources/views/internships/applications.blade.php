@@ -132,11 +132,14 @@
                                         <button
                                             class="bg-red-600 text-white px-4 py-2 rounded text-sm w-24 hover:bg-red-700 transition">Reject</button>
                                     </form>
+
+                                    <a href="{{ route('messages.index', $application) }}"
+                                        class="bg-blue-600 text-white px-3 py-1 rounded text-sm">Message</a>
                                 </div>
                             </div>
                         </div>
                     @empty
-                    <p class="text-gray-500">No applications found.</p>
+                        <p class="text-gray-500">No applications found.</p>
                     @endforelse
                 </div>
             </div>
