@@ -7,7 +7,7 @@
     @include('pages.ai-matching')
     @include('pages.activity-feed')
     {{-- @include('internships.index', ['internships' => $internships]) --}}
-    @include('pages.demo-students')
+    @include('pages.top-students')
     @include('pages.features')
     @include('pages.how-it-works')
     @include('pages.cta')

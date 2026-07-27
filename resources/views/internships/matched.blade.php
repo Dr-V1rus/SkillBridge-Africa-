@@ -55,7 +55,7 @@
                                     <div class="text-right ml-4">
                                         <span class="text-3xl font-bold text-blue-600">{{ $match['match_percentage'] }}%</span>
                                         <p class="text-xs text-gray-500">Match</p>
-                                        <a href="{{ route('internships.show', $match['internship']) }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg mt-2 inline-block hover:bg-blue-700">View Details</a>
+                                        <a href="{{ route('internships.show', $match['internship']) }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg mt-12 inline-block hover:bg-blue-700">View Details</a>
                                     </div>
                                 </div>
                             </div>

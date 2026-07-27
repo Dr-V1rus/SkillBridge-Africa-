@@ -10,7 +10,7 @@
             </a>
 
             <div class="hidden md:flex space-x-8">
-                <a href="/" class="text-gray-600 hover:text-gray-900">Home</a>
+                <a href="/"A class="text-gray-600 hover:text-gray-900">Home</a>
                 <a href="{{ route('features') }}" class="text-gray-600 hover:text-gray-900">Features</a>
                 <a href="{{ route('how-it-works') }}" class="text-gray-600 hover:text-gray-900">How It Works</a>
                 <a href="{{ route('about') }}" class="text-gray-600 hover:text-gray-900">About</a>

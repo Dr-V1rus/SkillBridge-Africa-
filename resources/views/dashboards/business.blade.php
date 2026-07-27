@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-    
-        <h2 class="flex justify-center mt-8 font-semibold text-xl text-gray-800 leading-tight">
-            Welcome {{ auth()->user()->name }} to your Dashboard
-        </h2>
+
+    <h2 class="flex justify-center mt-8 font-semibold text-xl text-gray-800 leading-tight">
+        Welcome {{ auth()->user()->name }} to your Dashboard
+    </h2>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -86,14 +86,12 @@
                         @endforelse
                     </div>
                     <!-- Authentication -->
-                    <form method="POST" action="{{ route('logout') }}"
-                        class="mb-2 mt-8 bg-red-600 w-24 rounded-full ml-6 py-4 px-4">
+                    <form method="POST" action="{{ route('logout') }}" class="mb-2 mt-8">
                         @csrf
-
-                        <a href="route('logout')" onclick="event.preventDefault();
-                                                                this.closest('form').submit();">
+                        <button type="submit"
+                            class="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition">
                             {{ __('Log Out') }}
-                        </a>
+                        </button>
                     </form>
                 </div>
             </div>

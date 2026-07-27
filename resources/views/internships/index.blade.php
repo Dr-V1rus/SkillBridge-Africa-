@@ -41,10 +41,32 @@
                             <div class="border p-4 rounded-lg">
                                 <h3 class="text-xl font-semibold">{{ $internship->title }}</h3>
                                 <p class="text-gray-600 mt-2">{{ Str::limit($internship->description, 150) }}</p>
-                                <div class="flex gap-4 mt-2 text-sm text-gray-500">
-                                    <span>Location: {{ $internship->location }}</span>
-                                    <span>Type: {{ ucfirst($internship->type) }}</span>
-                                    <span>Duration: {{ $internship->duration }}</span>
+
+                                
+                                <div class="flex">
+                                    <div class="flex gap-4 mt-2 text-sm text-gray-500">
+                                        <span>Location: {{ $internship->location }}</span>
+                                        <span>Type: {{ ucfirst($internship->type) }}</span>
+                                        <span>Duration: {{ $internship->duration }}</span>
+                                    </div>
+
+                                    <div class="flex ml-auto text-sm text-gray-500">
+                                        @auth
+                                            @if(auth()->user()->role === 'student' && isset($matchData[$internship->id]) && $matchData[$internship->id]['percentage'] > 0)
+                                                <div class="flex-col items-center gap-3">
+                                                    <span class="text-sm font-semibold text-blue-600">Match:
+                                                        {{ $matchData[$internship->id]['percentage'] }}%</span>
+                                                    <div class="flex-1 max-w-[200px] bg-gray-200 rounded-full h-2">
+                                                        <div class="bg-blue-600 h-2 rounded-full"
+                                                            style="width: {{ $matchData[$internship->id]['percentage'] }}%"></div>
+                                                    </div>
+                                                    <span class="text-xs text-gray-500">
+                                                        {{ count($matchData[$internship->id]['matched_skills']) }} skill(s) matched
+                                                    </span>
+                                                </div>
+                                            @endif
+                                        @endauth
+                                    </div>
                                 </div>
                                 <a href="{{ route('internships.show', $internship) }}"
                                     class="text-blue-600 mt-2 inline-block">View Details

@@ -9,6 +9,7 @@ class Internship extends Model
         'business_id',
         'title',
         'description',
+        'skills_required',
         'location',
         'type',
         'duration',

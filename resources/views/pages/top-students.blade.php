@@ -18,7 +18,7 @@
                                 <p class="text-sm text-blue-600">Student</p>
                             </div>
                         </div>
-                        <p class="text-gray-600 text-sm">Available for internships. Looking for opportunities to gain experience.</p>
+                        <p class="text-gray-600 text-sm">Skills: {{ $student->skills ?: 'Not specified' }}</p>
                         <div class="mt-4">
                             <p class="text-sm text-gray-500">Applications sent: {{ $student->applications->count() }}</p>
                         </div>

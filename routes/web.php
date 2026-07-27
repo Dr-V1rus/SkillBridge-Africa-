@@ -145,5 +145,3 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 });
 
 require __DIR__ . '/auth.php';
-Route::get('/test', function () {return view('test');});
-Route::get('/full', function () {return view('test-full');});

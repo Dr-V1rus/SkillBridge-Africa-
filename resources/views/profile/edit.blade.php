@@ -6,7 +6,7 @@
         <a href="{{ route('dashboard') }}" class="bg-gray-900 text-gray-100 px-6 py-2 rounded-lg ml-6">Back</a>
         <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
             <div class="max-w-xl">
-                @include('profile.partials.update-profile-information-form')
+                @include('profile.partials.update-profile-information-form', ['user' => $user])
             </div>
         </div>
 
